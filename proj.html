@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MUG LIFE</title>
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff8e1; /* light creamy yellow */
+    color: #4b2e00; /* dark brown */
+    line-height: 1.6;
+  }
+  a {
+    color: #a16b00; /* medium brown */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: #f2b705; /* warm yellow accent */
+  }
+
+  /* Header */
+  header {
+    background-color: #4b2e00; /* dark brown */
+    color: #f2b705; /* yellow */
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f2b705;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul li {
+    display: inline-block;
+  }
+  nav ul li a {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #f2b705;
+  }
+
+  /* Mobile menu toggle */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    justify-content: space-between;
+  }
+  .menu-toggle div {
+    height: 3px;
+    background: #f2b705;
+    border-radius: 2px;
+  }
+
+  /* Hero */
+  #hero {
+    background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff8e1;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  #hero .hero-content {
+    max-width: 700px;
+    background: rgba(75,46,0,0.85);
+    padding: 2rem;
+    border-radius: 8px;
+  }
+  #hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Georgia', serif;
+    color: #f2b705;
+  }
+  #hero p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  #hero .btn {
+    background-color: #f2b705;
+    color: #4b2e00;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 8px rgba(242,183,5,0.6);
+    transition: background-color 0.3s;
+  }
+  #hero .btn:hover {
+    background-color: #a16b00;
+    color: #fff8e1;
+  }
+
+  /* Sections general */
+  section {
+    padding: 4rem 1rem;
+  }
+  h2.section-title {
+    font-family: 'Georgia', serif;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #4b2e00;
+  }
+
+  /* Menu Section */
+  #menu .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .menu-item {
+    background: #fff4c9; /* light yellow */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(75,46,0,0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+  .menu-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 15px rgba(75,46,0,0.3);
+  }
+  .menu-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .menu-item-content {
+    padding: 1rem 1.25rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .menu-item h3 {
+    margin: 0 0 0.5rem 0;
+    color: #4b2e00;
+  }
+  .menu-item p {
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+  }
+  .menu-item .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #a16b00;
+  }
+
+  /* About Section */
+  #about {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #about img {
+    max-width: 400px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(75,46,0,0.3);
+  }
+  #about-text {
+    flex: 1;
+    font-size: 1.15rem;
+  }
+
+  /* Contact Section */
+  #contact {
+    max-width: 550px;
+    margin: 0 auto;
+  }
+  #contact form {
+    background: #fff4c9;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(75,46,0,0.15);
+  }
+  #contact label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4b2e00;
+  }
+  #contact input, 
+  #contact textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #dbb936;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+    color: #4b2e00;
+    background: #fff8b0;
+  }
+  #contact input:focus,
+  #contact textarea:focus {
+    outline: none;
+    border-color: #a16b00;
+    background: #fffed6;
+  }
+  #contact textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  #contact button {
+    background-color: #f2b705;
+    color: #4b2e00;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 8px rgba(242,183,5,0.5);
+    transition: background-color 0.3s;
+  }
+  #contact button:hover {
+    background-color: #a16b00;
+    color: #fff8e1;
+  }
+
+  /* Footer */
+  footer {
+    background: #4b2e00;
+    color: #f2b705;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  .social-icons {
+    margin-bottom: 0.75rem;
+  }
+  .social-icons a {
+    margin: 0 0.5rem;
+    color: #f2b705;
+    font-size: 1.4rem;
+    transition: color 0.3s;
+  }
+  .social-icons a:hover {
+    color: #a16b00;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      background: #4b2e00;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 200px;
+      display: none;
+      border-radius: 0 0 0 8px;
+      box-shadow: -2px 2px 8px rgba(0,0,0,0.3);
+      z-index: 998;
+    }
+    nav ul.show {
+      display: flex;
+    }
+    nav ul li {
+      padding: 1rem;
+      border-bottom: 1px solid #3a2200;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+    #about {
+      flex-direction: column;
+      text-align: center;
+    }
+    #about img {
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav-wrapper">
+    <div class="logo">MUG LIFE</div>
+    <nav>
+      <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul id="navMenu">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="hero" role="banner">
+  <div class="hero-content" >
+    <h1>Welcome to MUG LIFE</h1>
+    <p>Experience the rich aroma and perfect brew of your favorite coffee</p>
+    <button class="btn" onclick="scrollToMenu()">Explore Our Menu</button>
+  </div>
+</section>
+
+<section id="menu" aria-label="Coffee Menu">
+  <h2 class="section-title">Our Popular Coffees</h2>
+  <div class="menu-grid">
+    <article class="menu-item" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80" alt="Cappuccino" />
+      <div class="menu-item-content">
+        <h3>Cappuccino</h3>
+        <p>A classic espresso-based drink with steamed milk foam, rich and creamy.</p>
+        <div class="price">$4.50</div>
+      </div>
+    </article>
+    <article class="menu-item" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1510626176961-4b07d8f902d4?auto=format&fit=crop&w=400&q=80" alt="Cold Brew Coffee" />
+      <div class="menu-item-content">
+        <h3>Cold Brew</h3>
+        <p>Smooth, refreshing cold brewed coffee for a perfect pick-me-up.</p>
+        <div class="price">$5.00</div>
+      </div>
+    </article>
+    <article class="menu-item" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Latte" />
+      <div class="menu-item-content">
+        <h3>Latte</h3>
+        <p>Espresso with steamed milk and a light layer of foam, creamy and smooth.</p>
+        <div class="price">$4.75</div>
+      </div>
+    </article>
+    <article class="menu-item" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Mocha" />
+      <div class="menu-item-content">
+        <h3>Mocha</h3>
+        <p>Chocolate-infused espresso with steamed milk and whipped cream on top.</p>
+        <div class="price">$5.25</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="about">
+  <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80" alt="Barista making coffee" />
+  <div id="about-text">
+    <h2 class="section-title">About MUG LIFE</h2>
+    <p>
+      At MUG LIFE, we believe every cup is an experience. Our beans are
+      carefully sourced from sustainable farms and roasted to perfection. Our
+      skilled baristas craft each cup to bring you the perfect harmony of
+      flavor and aroma. Relax in our warm, inviting space or take your coffee to
+      go — it's your coffee moment, your way.
+    </p>
+  </div>
+</section>
+
+<section id="contact" aria-label="Contact Form">
+  <h2 class="section-title">Get in Touch</h2>
+  <form id="contactForm" novalidate>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" placeholder="Your name" required minlength="2" />
+    
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+    
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Your message" required minlength="10"></textarea>
+    
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <div class="social-icons" aria-label="Social media links">
+    <a href="#" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener">📘</a>
+    <a href="#" aria-label="Twitter" title="Twitter" target="_blank" rel="noopener">🐦</a>
+    <a href="#" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener">📷</a>
+  </div>
+  <div>© 2024 MUG LIFE. All rights reserved.</div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+  menuToggle.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navMenu.classList.toggle('show');
+    }
+  });
+
+  // Smooth scroll to menu section on button click
+  function scrollToMenu() {
+    document.getElementById('menu').scrollIntoView({behavior: 'smooth'});
+  }
+
+  // Contact form validation and submission handling
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    let isValid = true;
+    const nameInput = form.name;
+    const emailInput = form.email;
+    const messageInput = form.message;
+
+    // Simple validation
+    if (nameInput.value.trim().length < 2) {
+      alert('Please enter your name (at least 2 characters).');
+      nameInput.focus();
+      isValid = false;
+      return;
+    }
+    if (!emailInput.checkValidity()) {
+      alert('Please enter a valid email address.');
+      emailInput.focus();
+      isValid = false;
+      return;
+    }
+    if (messageInput.value.trim().length < 10) {
+      alert('Please enter your message (at least 10 characters).');
+      messageInput.focus();
+      isValid = false;
+      return;
+    }
+
+    if (isValid) {
+      alert('Thank you for contacting MUG LIFE! We will get back to you soon.');
+      form.reset();
+    }
+  });
+</script>
+</body>
+</html>
